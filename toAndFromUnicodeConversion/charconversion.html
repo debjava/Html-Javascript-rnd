@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>Character Conversion To and From Unicode</title>
+
+<script type="text/javascript">
+
+    function convert2Unicode()
+    {
+		var textValue = document.getElementById("textDataId").value;
+		var unicodeValue = toUnicode(textValue);
+		document.getElementById("displayTextDataId").value =  unicodeValue;
+		document.getElementById("unicodeDataId").value =  unicodeValue;
+    }
+	
+	function convert2Normal()
+	{
+		var textValue = document.getElementById("unicodeDataId").value;
+		var unescaped = unescapeFromUnicode(textValue);
+		document.getElementById("displayTextDataId").value = unescaped;
+	}
+	
+	function toUnicode(theString) 
+    {
+          var unicodeString = '';
+          for (var i=0; i < theString.length; i++) {
+            var theUnicode = theString.charCodeAt(i).toString(16).toUpperCase();
+            while (theUnicode.length < 4) {
+              theUnicode = '0' + theUnicode;
+            }
+            theUnicode = '\\u' + theUnicode;
+            unicodeString += theUnicode;
+          }
+          return unicodeString;
+    }
+	
+	function unescapeFromUnicode(str) 
+	{
+		var parts = str.split("\\u");
+		  parts.shift(); 
+		  var utf16_codes = [];
+		  var max = Math.pow(2, 16);
+		  for (var i = 0; i < parts.length; ++i) {
+			var code = parseInt(parts[i], 16);
+			if (code >= 0 && code < max) {
+			  utf16_codes.push(code);
+			}
+			else 
+			{
+			  //Ignore
+			}
+		  }
+		var unescaped = '';
+		for (var i = 0; i < utf16_codes.length; ++i) 
+		{
+			unescaped += String.fromCharCode(utf16_codes[i]);
+		}
+		return unescaped;
+	}
+    
+</script>
+
+</head>
+<body>
+
+<form name="form1" method="get" action="/characterencodingsubmit/test" enctype="application/x-www-form-urlencoded">
+    <fieldset style="width: 600px;height:200;">
+        <legend>Input &nbsp;</legend>
+        <table>
+            <tr> 
+              <td>Text data:</td>
+              <td>
+                <textarea rows="4" cols="35" id="textDataId" name="inputtextarea"></textarea>
+              </td>
+			  <td>
+				 <input type="button" name="unicodesubmit" value="To Unicode" onclick="convert2Unicode();"/>
+			  </td>
+            </tr>
+            <tr> 
+              <td>Unicode data:</td>
+              <td>
+                <textarea rows="4" cols="35" id="unicodeDataId" name="inocodetextarea"></textarea>
+              </td>
+			  <td>
+				 <input type="button" name="textsubmit" value="From Unicode" onclick="convert2Normal();"/>
+			  </td>
+            </tr>
+        </table>
+    </fieldset>
+    
+    <fieldset style="width: 600px;height:200;">
+        <legend>Display &nbsp;</legend>
+        <table>
+            <tr> 
+              <td>Intermediate Result:</td>
+              <td>
+                <textarea rows="4" cols="35"  id="displayTextDataId" name="displaytextarea"></textarea>
+              </td>
+            </tr>
+        </table>
+    </fieldset>
+</form>
+
+
+</body>
+</html>

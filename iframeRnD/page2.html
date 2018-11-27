@@ -1,0 +1,30 @@
+<html>
+<head>
+<title>IFrame Test2</title>
+
+</head>
+
+<script>
+
+function test()
+{
+	var t = document.getElementById('f1').contentWindow.document.getElementById('h2').value;
+	alert(t);
+}
+
+</script>
+
+<body onLoad="test();">
+<h3>Second Frame</h3>
+
+<input type="hidden" id="h1" value="value11">
+
+<div style="display:none">
+
+<iframe id="f1" SRC="page1.html" WIDTH=450 HEIGHT=100>
+</iframe>
+	
+</div>
+
+</body>
+</html>

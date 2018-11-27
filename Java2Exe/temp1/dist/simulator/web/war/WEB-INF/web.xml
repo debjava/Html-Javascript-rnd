@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="WebApp_1292322421533" version="2.4" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+	<servlet>
+		<servlet-name>esawebtest</servlet-name>
+		<servlet-class>com.idealinvent.corniche.servlet.HTTPServiceTest</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>esawebtest</servlet-name>
+		<url-pattern>/esawebtest</url-pattern>
+	</servlet-mapping>	
+
+	<welcome-file-list>
+		<welcome-file>/TestAurigaInterface.jsp</welcome-file>
+	</welcome-file-list>
+
+</web-app>

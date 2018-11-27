@@ -1,0 +1,10 @@
+<AtcCommand>
+    <Authorize>
+        <ReferenceId/>
+        <CashierId/>
+        <TransactionAmount/>
+        <TransactionVAT/>
+        <TransCurrencyCode/>
+        <OpenTransactionNr/>
+    </Authorize>
+</AtcCommand>

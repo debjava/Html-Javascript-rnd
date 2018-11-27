@@ -1,0 +1,46 @@
+#---------------------------------------------------
+# Datasource Creation in Websphere
+# Author : Debadatta Mishra
+# Comments : Removal of database details from server
+#---------------------------------------------------
+
+#------------------------------------------------
+# Initialization of variables
+# Provide the relevent database details
+#------------------------------------------------
+
+datasource = 'OracleDS';
+jdbcName = 'OracleJDBC1';
+alias1 = 'test1';
+#------------------------------------------------
+# Removal of datasource
+#------------------------------------------------
+server = AdminControl.queryNames('node='+AdminControl.getNode( )+',type=Server,*')
+serverName = AdminControl.getAttribute(server, "name")
+print serverName
+nodeName = AdminControl.getNode( )
+cellName = AdminControl.getCell( )
+ds = AdminConfig.getid('/Cell:'+cellName+'/Node:'+nodeName+'/Server:'+serverName+''+'/JDBCProvider:'+ jdbcName) 
+newds1 = AdminConfig.getid('/Cell:'+cellName+'/Node:'+nodeName+'/Server:'+serverName+''+'/JDBCProvider:'+ jdbcName +'/DataSource:'+ datasource)
+print newds1;
+AdminTask.deleteDatasource(newds1)
+AdminConfig.save()
+
+#------------------------------------------------
+# Removal of JDBC Auth Data Entry
+#------------------------------------------------
+AdminTask.deleteAuthDataEntry('[-alias '+alias1+' ]')
+AdminConfig.save()
+
+#------------------------------------------------
+# Removal of JDBC Provider
+#------------------------------------------------
+server = AdminControl.queryNames('node='+AdminControl.getNode( )+',type=Server,*')
+serverName = AdminControl.getAttribute(server, "name")
+print serverName
+nodeName = AdminControl.getNode( )
+cellName = AdminControl.getCell( )
+ds = AdminConfig.getid('/Cell:'+cellName+'/Node:'+nodeName+'/Server:'+serverName+''+'/JDBCProvider:'+ jdbcName) 
+print ds;
+AdminConfig.remove(ds)
+AdminConfig.save()

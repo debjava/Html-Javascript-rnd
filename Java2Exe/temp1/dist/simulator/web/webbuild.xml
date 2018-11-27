@@ -1,0 +1,14 @@
+<project name="esaweb" basedir="." default="generate.war">
+
+    <property name="war.dir" value="${basedir}/war" />
+    <property name="war.file.name" value="${basedir}/${ant.project.name}.war" />
+	
+	<target name="init">
+		<delete file="${war.file.name}"/>
+	</target>
+	
+	<target name="generate.war" depends="init">
+		<jar destfile="${war.file.name}" basedir="${war.dir}" />
+	</target>
+
+</project>

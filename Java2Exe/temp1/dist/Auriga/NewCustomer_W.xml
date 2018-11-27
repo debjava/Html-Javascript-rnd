@@ -1,0 +1,8 @@
+<AtcCommand>
+  <NewCustomer>
+   <TransactionType>W</TransactionType> 
+   <CardContinue>FALSE</CardContinue> 
+   <OpenFuncKey>TRUE</OpenFuncKey>
+  </NewCustomer>
+</AtcCommand>
+

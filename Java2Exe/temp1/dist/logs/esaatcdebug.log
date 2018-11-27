@@ -1,0 +1,4 @@
+[20-Aug-2011 12:58]DEBUG com.iit.esa.devices.desktop.server.HttpDevicesServer - Server Port --->1080
+[20-Aug-2011 12:58]INFO com.iit.esa.devices.desktop.server.HttpDevicesServer - Server is listening on port 1080
+[20-Aug-2011 01:02]DEBUG com.iit.esa.devices.desktop.server.HttpDevicesServer - Server Port --->1080
+[20-Aug-2011 01:02]INFO com.iit.esa.devices.desktop.server.HttpDevicesServer - Server is listening on port 1080

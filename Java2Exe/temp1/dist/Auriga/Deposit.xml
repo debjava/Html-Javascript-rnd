@@ -1,0 +1,8 @@
+<AtcCommand>
+  <Deposit>
+    <TransactionAmount>0</TransactionAmount>
+    <TransCurrencyCode>752</TransCurrencyCode>
+    <ReferenceId>123</ReferenceId>
+    <CashierId>778899</CashierId>
+  </Deposit>
+</AtcCommand>

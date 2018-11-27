@@ -1,0 +1,8 @@
+<AtcRequestResponse> 
+  <RequestTransactionData>
+    <TransactionAmount>33000</TransactionAmount>
+    <TransactionVAT>5000</TransactionVAT>
+    <TransCurrencyCode>752</TransCurrencyCode>
+    <CashBackAmount>00000000</CashBackAmount>
+  </RequestTransactionData>
+</AtcRequestResponse>

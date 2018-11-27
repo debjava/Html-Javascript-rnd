@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Test External Html File Loading Using JQuery</title>
+
+	<script type="text/javascript" src="js/jquery-1.5.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
+	<script type="text/javascript" src="prototype-1.7/prototype.js"></script>
+
+<script>$ = jQuery.noConflict();</script>
+
+  <script>
+	  
+	function loadExternalHtml()
+	{
+		alert( $("#div1") );
+		new Ajax.Request('http://localhost:8080/posserver/card?msgid=100&pin=1234&cardno=4267&pname=deba',
+		  {
+			method:'get',
+			onSuccess: function(transport)
+			{
+			  var response = transport.responseText || "no response text";
+				alert("Success! \n\n" + response);
+				$("#div1").html( response );
+			},
+			onFailure: function(){ alert('Something went wrong...') }
+		  });
+	}
+  </script>
+  
+  <style>
+	.sub
+	{
+		border: 2px solid cyan;width: 400px;height: 255px;
+	}	
+  </style>
+		
+</head>
+
+<body>
+
+<h2>External Html File Loading Using JQuery</h2>
+
+<input type="button" id="btnId" value="Load External Html" onclick="loadExternalHtml();">
+
+
+<div id="div1" class="sub">
+
+</div>
+
+</body>
+
+</html>

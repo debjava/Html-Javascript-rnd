@@ -1,0 +1,9 @@
+<AtcCommand>
+  <Refund>
+    <TransactionAmount>0</TransactionAmount>
+    <TransactionVAT>0</TransactionVAT>
+    <TransCurrencyCode>752</TransCurrencyCode>
+    <ReferenceId>123</ReferenceId>
+    <CashierId>778899</CashierId>
+  </Refund>
+</AtcCommand>

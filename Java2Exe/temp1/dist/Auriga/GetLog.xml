@@ -1,0 +1,9 @@
+<AtcCommand>
+    <GetLog>
+      <TypeOfLog>C</TypeOfLog>
+      <RequestType>A</RequestType>
+      <LogFileName>/tmp/iPOS_transaction.log</LogFileName>
+    </GetLog>
+</AtcCommand>
+
+

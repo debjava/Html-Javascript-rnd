@@ -1,0 +1,55 @@
+
+<html>
+<head>
+<title>Draggable handle example</title>
+
+<script type="text/javascript" src="dom-drag.js"></script>
+
+<script language="javascript">
+function test()
+{
+	var theHandle = document.getElementById("handle");
+	var theRoot   = document.getElementById("root");
+	Drag.init(theHandle, theRoot);
+} 
+</script>
+
+<style type="text/css"> 
+	#root {
+		position:absolute;
+		height:300px;
+		width:300px;
+		background-color:#F4F4F4;
+		border:1px solid #333;
+		}
+ 
+	#handle {
+		margin:2px;
+		padding:2px;
+		width: 98%;
+		color:white;
+		background-color: navy;
+		font-weight: bold;
+		}
+</style>
+
+</head>
+ 
+<body onLoad="test();">
+ 
+<div id="root" style="left:50px; top:100px;">
+	<div id="handle">Handle</div>
+	Some text
+</div>
+
+<!-- 
+<script language="javascript"> 
+	var theHandle = document.getElementById("handle");
+	var theRoot   = document.getElementById("root");
+	Drag.init(theHandle, theRoot);
+</script>
+--> 
+ 
+</body>
+ 
+</html>

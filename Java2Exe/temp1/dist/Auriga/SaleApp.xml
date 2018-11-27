@@ -1,0 +1,105 @@
+<SALEAPP>
+  <REQUEST
+    ReqType = "Commands"
+    Name = "New Customer"
+    Description="No desc"
+    Hint=""
+    FileName="NewCustomer.xml"
+    SendData=""
+  />
+  <REQUEST
+    ReqType = "Commands"
+    Name = "Init"
+    Description="No desc"
+    Hint=""
+    FileName="Init.xml"
+  />
+
+  <REQUEST
+    ReqType = "Commands"
+    Name = "Pay"
+    Description="No desc"
+    Hint=""
+    FileName="Pay.xml"
+  />
+  <REQUEST
+    ReqType = "Commands"
+    Name = "Refund"
+    Description="No desc"
+    Hint=""
+    FileName="Refund.xml"
+  />
+
+  <REQUEST
+    ReqType = "Commands"
+    Name = "Cancel"
+    Description="No desc"
+    FileName = "Cancel.xml"
+  />
+  <REQUEST
+    ReqType = "Commands"
+    Name = "RollBack"
+    Description="No desc"
+    FileName = "RollBack.xml"
+  />
+  <REQUEST
+    ReqType = "Commands"
+    Name = "PutCardData"
+    Description="No desc"
+    FileName = "PutCardData.xml"
+  />
+
+   <CLOSEBATCH
+    ReqType = "Commands"
+    Name = "CloseBatch"
+    Description="No desc"
+    FileName = "CloseBatch.xml"
+  />
+
+   <NewParameters
+    ReqType = "Commands"
+    Name = "NewParameters"
+    Description="No desc"
+    FileName = "NewParameters.xml"
+  />
+   <Open
+    ReqType = "Commands"
+    Name = "Open"
+    Description="No desc"
+    FileName = "Open.xml"
+  />
+ <REQUEST
+    ReqType = "Commands"
+    Name = "GetLastStatus"
+    Description="No desc"
+    FileName = "GetLastStatus.xml"
+  />
+  <REQUEST
+    ReqType = "Service"
+    Name = "CardRead"
+    Description="No desc"
+    FileName = "CardRead.xml"
+  />
+  
+  <REQUEST
+    ReqType = "Service"
+    Name = "Request Amount"
+    Description="No desc"
+    FileName = "RequestAmount.xml"
+  />
+  
+  <REQUEST
+    ReqType = "Service"
+    Name = "Receive Data"
+    Description="No desc"
+    FileName = "ReceiveData.xml"
+  />
+  <REQUEST
+    ReqType = "Service"
+    Name = "Confirm"
+    Description="No desc"
+    FileName = "Confirm.xml"
+  />
+  
+ 
+</SALEAPP>

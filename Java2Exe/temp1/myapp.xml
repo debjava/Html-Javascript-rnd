@@ -1,0 +1,11 @@
+<service>
+  <id>fisheye</id>
+  <name>dev.net FishEye</name>
+  <description>FishEye</description>
+  <executable>D:/temp1/run1.exe</executable>
+  <logpath></logpath>
+  <logmode></logmode>
+  <depend>Spooler</depend>
+  <startargument>run</startargument>
+  <stopargument>stop</stopargument>
+</service>

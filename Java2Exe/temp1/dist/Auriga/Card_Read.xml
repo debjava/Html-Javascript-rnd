@@ -1,0 +1,6 @@
+<AtcCommand>
+    <CardRead>
+       <LoyaltyDone>TRUE</LoyaltyDone>
+       <OpenLowLevel>FALSE</OpenLowLevel>
+    </CardRead>
+</AtcCommand>

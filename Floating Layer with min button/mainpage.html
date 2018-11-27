@@ -1,0 +1,75 @@
+<HTML>
+<HEAD>
+<TITLE>Floating Layer creation</TITLE>
+
+<script type="text/javascript" src="contentwindow.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="process_style.css"> -->
+</HEAD>
+
+<script language="javascript">
+function openFloatingLayer()
+{
+	var title = "Title Layer";
+	var content = "login.html";
+	var inlinewin = contentwindow.open("broadcastbox", "iframe", content, title, "width=300px, height=120px, left=600px,top=230px, resize=1, scrolling=0", "recal");
+}
+</script>
+
+<style>
+.contentwindow
+{
+	position: absolute;
+	border: 1px solid gray;
+	visibility: hidden;
+	background-color: white;
+}
+
+.drag-handle
+{ /*CSS for Drag Handle #f8924f;*/
+	padding: 1px;
+	text-indent: 2px;
+	font: bold 12px Palatino Linotype;
+	background-color: #E9E9E9;
+	color: #330000;
+	cursor: move;
+	overflow: hidden;
+	width: auto;
+	filter:progid:DXImageTransform.Microsoft.alpha(opacity=100);
+	-moz-opacity: 1;
+	opacity: 1;
+}
+
+.drag-handle .drag-controls
+{ /*CSS for controls (min, close etc) within Drag Handle*/
+	position: absolute;
+	right: 1px;
+	top: 2px;
+	cursor: hand;
+	cursor: pointer;
+}
+
+* html .drag-handle
+{ /*IE6 and below CSS hack. Width must be set to 100% in order for opaque title bar to render*/
+	width: 100%;
+}
+
+
+.drag-contentarea
+{ /*CSS for Content Display Area div*/
+	border-top: 1px solid gray; 
+	background-color: white;
+	color: black;
+	height: 150px;
+	padding: 2px;
+	overflow: auto;
+}
+
+</style>
+
+<BODY>
+
+<input type="button" value="FloatingLayer" id="btnId" onclick="openFloatingLayer();">
+
+</BODY>
+
+</HTML>

@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> New Document </title>
+  <script type="text/javascript">
+	var TimeToFade = 200.0;
+	/*
+	function fade(eid)
+	{
+		var element = document.getElementById(eid);
+		if(element == null) 
+			return;
+		if(element.FadeState == null)
+		{
+			if(element.style.opacity == null || element.style.opacity == '' || element.style.opacity == '1')
+			{             
+				element.FadeState = 2;
+			}
+			else
+			{
+				element.FadeState = -2;
+			}
+		}
+		if(element.FadeState == 1 || element.FadeState == -1)
+		{
+			element.FadeState = element.FadeState == 1 ? -1 : 1;
+			element.FadeTimeLeft = TimeToFade - element.FadeTimeLeft;
+		}
+		else
+		{
+			element.FadeState = element.FadeState == 2 ? -1 : 1;
+			element.FadeTimeLeft = TimeToFade;
+			setTimeout("animateFade(" + new Date().getTime() + ",'" + eid + "')", 33);
+		}
+	}
+	function animateFade(lastTick, eid)
+	{
+		var curTick = new Date().getTime();
+		var elapsedTicks = curTick - lastTick;
+		var element = document.getElementById(eid);
+		if(element.FadeTimeLeft <= elapsedTicks) 
+		{
+			element.style.opacity = element.FadeState == 1 ? '1' : '0';
+			element.style.filter = 'alpha(opacity = '+ (element.FadeState == 1 ? '100' : '0') + ')';
+			element.FadeState = element.FadeState == 1 ? 2 : -2;
+			element.style.display = "none";
+			return;
+		}
+		element.FadeTimeLeft -= elapsedTicks;
+		var newOpVal = element.FadeTimeLeft/TimeToFade;
+		if(element.FadeState == 1) 
+		{
+			newOpVal = 1 - newOpVal;
+		}
+		element.style.opacity = newOpVal;
+		element.style.filter = 'alpha(opacity = ' + (newOpVal*100) + ')';
+		setTimeout("animateFade(" + curTick + ",'" + eid + "')", 33);
+	}
+	function unfade( eid )
+	{
+		var element = document.getElementById(eid);
+		//alert(element.style.opacity);
+		//alert(element.FadeState);
+		//element.style.opacity = '1';
+		//element.FadeState = 100;
+		element.style.display = '';
+	}
+	*/
+	var TimeToFade = 1000.0;
+
+function fade(eid)
+{
+  var element = document.getElementById(eid);
+  if(element == null)
+    return;
+   
+  if(element.FadeState == null)
+  {
+    if(element.style.opacity == null 
+        || element.style.opacity == '' 
+        || element.style.opacity == '1')
+    {
+      element.FadeState = 2;
+    }
+    else
+    {
+      element.FadeState = -2;
+    }
+  }
+    
+  if(element.FadeState == 1 || element.FadeState == -1)
+  {
+    element.FadeState = element.FadeState == 1 ? -1 : 1;
+    element.FadeTimeLeft = TimeToFade - element.FadeTimeLeft;
+  }
+  else
+  {
+    element.FadeState = element.FadeState == 2 ? -1 : 1;
+    element.FadeTimeLeft = TimeToFade;
+    setTimeout("animateFade(" + new Date().getTime() + ",'" + eid + "')", 33);
+  }  
+}
+
+function animateFade(lastTick, eid)
+{  
+  var curTick = new Date().getTime();
+  var elapsedTicks = curTick - lastTick;
+  
+  var element = document.getElementById(eid);
+ 
+  if(element.FadeTimeLeft <= elapsedTicks)
+  {
+    element.style.opacity = element.FadeState == 1 ? '1' : '0';
+    element.style.filter = 'alpha(opacity = ' 
+        + (element.FadeState == 1 ? '100' : '0') + ')';
+    element.FadeState = element.FadeState == 1 ? 2 : -2;
+    return;
+  }
+ 
+  element.FadeTimeLeft -= elapsedTicks;
+  var newOpVal = element.FadeTimeLeft/TimeToFade;
+  if(element.FadeState == 1)
+    newOpVal = 1 - newOpVal;
+
+  element.style.opacity = newOpVal;
+  element.style.filter = 'alpha(opacity = ' + (newOpVal*100) + ')';
+  
+  setTimeout("animateFade(" + curTick + ",'" + eid + "')", 33);
+}
+
+
+	
+	
+	
+  </script>
+ </head>
+
+ <body>
+  <div id="fademe" style="background-color:Lime;width:250px;
+      height:65px;text-align:center;" onclick="fade( 'fademe' )">
+	  <p>This will fade when you click it</p>     
+  </div>
+  <div>
+	<input type="button" value="Fade" name="fadeBtn" onClick="fade('fademe')">
+	<input type="button" value="No Fade" name="fadeBtn" onClick="fade('fademe')">
+  </div>
+ </body>
+</html>

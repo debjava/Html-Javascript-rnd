@@ -1,0 +1,10 @@
+<AtcCommand>
+    <Withdrawal>
+        <TransactionAmount>2000</TransactionAmount>
+        <TransactionVAT>0</TransactionVAT>
+        <TransCurrencyCode>752</TransCurrencyCode>
+        <CashBackAmount>0</CashBackAmount>
+        <ReferenceId>123</ReferenceId>
+        <CashierId>778899</CashierId>
+    </Withdrawal>
+</AtcCommand>

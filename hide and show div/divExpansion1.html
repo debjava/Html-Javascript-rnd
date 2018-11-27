@@ -1,0 +1,71 @@
+<html>
+<head>
+</head>
+<script>
+/* This script and many more are available free online at
+The JavaScript Source!! http://javascript.internet.com
+Created by: Justin Barlow | http://www.netlobo.com */
+
+function toggleLayer(whichLayer) {
+  var elem, vis;
+  if(document.getElementById) // this is the way the standards work
+    elem = document.getElementById(whichLayer);
+  else if(document.all) // this is the way old msie versions work
+      elem = document.all[whichLayer];
+  else if(document.layers) // this is the way nn4 works
+    elem = document.layers[whichLayer];
+  vis = elem.style;
+  // if the style.display value is blank we try to figure it out here
+  if(vis.display==''&&elem.offsetWidth!=undefined&&elem.offsetHeight!=undefined)
+    vis.display = (elem.offsetWidth!=0&&elem.offsetHeight!=0)?'block':'none';
+  vis.display = (vis.display==''||vis.display=='block')?'none':'block';
+}
+
+</script>
+<style>
+div.quote {
+ 	margin-left: 25%;
+  padding: 10px;
+	 background-color: #FFCF31;
+  border: 1px solid #00009C;
+  width: 450px;
+}
+
+div.quote p {
+ 	font-size: .8em;
+	 margin: 0px 0px 0px 0px;
+}
+
+div#commentForm {
+ 	display: none;
+ 	margin: 0px 20px 0px 20px;
+ 	font-family: Arial, sans-serif;
+ 	font-size: .8em;
+}
+
+a.commentLink {
+ 	font-family: Arial, sans-serif;
+	 font-size: .9em;
+}
+
+
+</style>
+<body>
+<div class="quote">
+<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Praesent porttitor luctus quam. Pellentesque diam libero, feugiat quis, porttitor sagittis, suscipit dignissim, pede. Duis dapibus mauris at enim. Morbi vehicula turpis nec massa.</p>
+<p style="text-align: right;"><a class="commentLink" title="Add a comment to this entry" href="javascript:toggleLayer('commentForm');">Add a comment</a>
+
+<div id="commentForm">
+<form id="addComment" action="" method="get">
+ 	<p>Name:<br>
+	 <input name="name"><br>
+	 Comment:<br>
+	 <textarea rows="3" cols="40" name="comment"></textarea><br>
+	 <input name="submit" value="Add Comment" type="submit"> <input onclick="javascript:toggleLayer('commentForm');" name="reset" value="Cancel" type="reset"></p>
+</form>
+</div>
+
+</div>
+
+</body>
+</html>

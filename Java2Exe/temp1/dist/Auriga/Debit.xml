@@ -1,0 +1,10 @@
+<AtcCommand>
+    <Debit>
+        <ReferenceId/>
+        <CashierId/>
+        <TransactionAmount/>
+        <TransactionVAT/>
+        <TransCurrencyCode/>
+        <OpenTransactionNr/>
+    </Debit>
+</AtcCommand>

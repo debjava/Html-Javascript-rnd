@@ -1,0 +1,50 @@
+
+<html>
+ <head>
+  <title> New Document </title>
+  <script language="javascript">
+  function hideNShow(divId)
+  {
+	var state = document.getElementById(divId).style.display;
+	    if (state == 'block') 
+		{
+			document.getElementById(divId).style.display = 'none';
+		}
+		else 
+		{
+			document.getElementById(divId).style.display = 'block';
+		}
+  }
+  </script>
+  
+ </head>
+
+ <body>
+ 
+	<a href="#" onClick="hideNShow('dId1')">Hide Div1</a>
+	<p>
+	<a href="#" onClick="hideNShow('dId2')">Hide Div2</a>
+	<p>
+	<a href="#" onClick="hideNShow('dId1')">Show Div1</a>
+	<p>
+	<a href="#" onClick="hideNShow('dId2')">Show Div2</a>
+	
+	<div id="dId1" style="display: none;">
+		<table border="2">
+			<tr>
+				<td> <h1>First Div</h1> </td>
+			</tr>
+		</table>
+	</div>
+	
+	<p>
+	
+	<div id="dId2" style="display: none;">
+		<table border="2">
+			<tr>
+				<td> <h1>Second Div</h1> </td>
+			</tr>
+		</table>
+	</div>
+ </body>
+</html>

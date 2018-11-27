@@ -1,0 +1,142 @@
+#----------------------------------------------------------------------------
+# Datasource Creation in Websphere and Deployment of application in Websphere
+# Author : Debadatta Mishra
+#----------------------------------------------------------------------------
+
+#------------------------------------------------
+# Initialization of variables
+# Provide the relevent database details
+#------------------------------------------------
+# Provide below the database details
+jdbcName = 'OracleJDBC1';
+jdbc_driver = '${ORACLE_JDBC_DRIVER_PATH}/ojdbc6.jar';
+alias1 = 'test1';
+user = 'test1';
+password = 'test1'
+datasource = "OracleDS"
+jndiName = "OracleDS"
+jdbcName = 'OracleJDBC1';
+alias1 = 'test1';
+url = 'jdbc:oracle:thin:@localhost:1521:orcl';
+
+# Provide below the application details
+# Provide below the .war directory path
+file_path = 'D:/Jython-Scripting-Websphere/SampleApps/';
+# Provide below the .war file name only
+war_file_name = 'connectionpool.war';
+# Provide below the root context application name
+application_name = 'connectionpool';
+# Provide below the Websphere application server version number
+serverVersionNo = '8.0.0.1';
+# Full War file path 
+war_file_path = file_path+war_file_name;
+
+#---------------------------------------------------End of Initialization parameters-----------------------------------
+
+# *************************************************************************************************
+# Logical Section below, do not modify the below code without any prior information and knowledge
+# *************************************************************************************************
+
+#------------------------------------------------
+# JDBC Provider Creation
+#------------------------------------------------
+server = AdminControl.queryNames('node='+AdminControl.getNode( )+',type=Server,*')
+serverName = AdminControl.getAttribute(server, "name")
+nodeName = AdminControl.getNode( )
+cellName = AdminControl.getCell( )
+serverId1 = AdminConfig.getid('/Cell:'+cellName+'/Node:'+nodeName+'/Server:'+serverName+'/')
+print serverId1
+## Creating New JDBC Provider ##
+print " Creating New JDBC Provider :"+ jdbcName 
+n1 = ["name" , jdbcName ]
+desc = ["description" , "Oracle JDBC Driver"]
+impn = ["implementationClassName" , "oracle.jdbc.pool.OracleConnectionPoolDataSource"]
+classpath = ["classpath" , jdbc_driver ]
+attrs1 = [n1 , impn , desc , classpath]
+cell = AdminControl.getCell()
+#Serverid = AdminConfig.getid('/Cell:'+ cell +'/')		
+#print Serverid
+jdbc = AdminConfig.create('JDBCProvider' , serverId1 , attrs1)
+print " New JDBC Provider created :"+ jdbcName 
+AdminConfig.save()
+print " Saving Configuraion " 
+print " ---------------------------- End of JDBC Provider Creation --------------------------- "
+#------------------------------------------------
+# J2C Authentication Data Creation
+#------------------------------------------------
+cell = AdminControl.getCell();
+sec = AdminConfig.getid('/Cell:'+ cell +'/Security:/');
+print sec;
+## J2C Authentication Entries ##
+print " Creating New JAASAuthData with Alias name :"+ alias1
+alias_attr = ["alias" , alias1]
+desc_attr = ["description" , alias1]
+userid_attr = ["userId" , user ]
+password_attr = ["password" , password]
+attrs = [alias_attr , desc_attr , userid_attr , password_attr ]
+authdata = AdminConfig.create('JAASAuthData' , sec , attrs)
+print " Saving Configuraion "
+AdminConfig.save()
+print " ----------------------- End of J2C Authentication Data Creation ----------------------- "
+#------------------------------------------------
+# Datasource Creation in Websphere
+#------------------------------------------------
+server = AdminControl.queryNames('node='+AdminControl.getNode( )+',type=Server,*')
+serverName = AdminControl.getAttribute(server, "name")
+print serverName
+nodeName = AdminControl.getNode( )
+cellName = AdminControl.getCell( )
+ds = AdminConfig.getid('/Cell:'+cellName+'/Node:'+nodeName+'/Server:'+serverName+''+'/JDBCProvider:'+ jdbcName) 
+print ds;
+name1 = ["name" , datasource]
+jndi = ["jndiName" , jndiName]
+authentication = ["authDataAlias" , alias1]
+st_cachesize = ["statementCacheSize" , "150"]
+ds_hlpclass = ["datasourceHelperClassname" , "com.ibm.websphere.rsadapter.Oracle11gDataStoreHelper"]
+map_configalias_attr=["mappingConfigAlias", "DefaultPrincipalMapping"]
+map_attrs=[authentication , map_configalias_attr]
+mapping_attr=["mapping", map_attrs]
+ds_attr = [name1 , jndi , authentication , st_cachesize , ds_hlpclass ,mapping_attr ]
+newds = AdminConfig.create('DataSource' , ds , ds_attr)
+print " New DataSource created with name :"+ datasource 
+AdminConfig.save()
+print " Saving Configuraion "
+newds1 = AdminConfig.getid('/Cell:'+cellName+'/Node:'+nodeName+'/Server:'+serverName+''+'/JDBCProvider:'+ jdbcName +'/DataSource:'+ datasource)
+print newds1;
+propSet = AdminConfig.create('J2EEResourcePropertySet' , newds1 , "")
+name3 = ["name" , "URL"]
+type = ["type" , "java.lang.String"]
+required = ["required" , "true"]
+value = ["value" , url]
+rpAttrs = [name3 , type , required , value]
+jrp = AdminConfig.create('J2EEResourceProperty' , propSet , rpAttrs)
+print " Properties created for DataSource :"+ datasource 
+print " Saving Configuraion "
+AdminConfig.save()
+AdminConfig.save()
+print " ----------------------- End of Datasource Creation ----------------------- "
+
+server = AdminControl.queryNames('node='+AdminControl.getNode( )+',type=Server,*');
+print server;
+serverName = AdminControl.getAttribute(server, "name");
+print serverName;
+nodeName = AdminControl.getNode( );
+print nodeName;
+cellName = AdminControl.getCell( );
+print cellName;
+
+wasServerVarName = 'WebSphere:cell='+cellName+',node='+nodeName+',server='+serverName;
+print wasServerVarName;
+
+# ******************* Installation of application *********************
+AdminApp.install(war_file_path, '[ -nopreCompileJSPs -distributeApp -nouseMetaDataFromBinary -nodeployejb -appname '+application_name+' -createMBeansForResources -noreloadEnabled -nodeployws -validateinstall warn -noprocessEmbeddedConfig -filepermission .*\.dll=755#.*\.so=755#.*\.a=755#.*\.sl=755 -noallowDispatchRemoteInclude -noallowServiceRemoteInclude -asyncRequestDispatchType DISABLED -nouseAutoLink -noenableClientModule -clientMode isolated -novalidateSchema -contextroot /'+application_name+' -MapModulesToServers [[ '+war_file_name+' '+war_file_name+',WEB-INF/web.xml '+wasServerVarName+' ]] -MapWebModToVH [[ '+war_file_name+' '+war_file_name+',WEB-INF/web.xml default_host ]] -CtxRootForWebMod [[ '+war_file_name+' '+war_file_name+',WEB-INF/web.xml /'+application_name+' ]]]' );
+AdminConfig.save();
+
+# *****************************Start the deployed application **********************
+AdminControl.invoke('WebSphere:name=ApplicationManager,process=server1,platform=proxy,node='+nodeName+',version='+serverVersionNo+',type=ApplicationManager,mbeanIdentifier=ApplicationManager,cell='+cellName+',spec=1.0', 'startApplication', '['+application_name+']', '[java.lang.String]');
+print "Saving the information"
+AdminConfig.save();
+
+print '\n*****************************************************\n'
+print 'Application '+application_name+' Started Successfully';
+print '\n*****************************************************\n'

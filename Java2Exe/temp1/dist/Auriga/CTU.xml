@@ -1,0 +1,29 @@
+<AtcCommand>
+   <CTU>
+       <RequestID>01234567</RequestID>
+       <ControlData>
+          <DateTime>201003091547</DateTime>
+          <OrgNr>1212121212</OrgNr>
+          <ManRegisterID>EASYPOS012345678</ManRegisterID>
+          <SequenceNumber>000000000001</SequenceNumber>
+          <ReceiptType>normal</ReceiptType>
+          <ReturnAmount>00000000000,00</ReturnAmount>
+          <VAT1>
+             <Percent>25,00</Percent>
+             <Amount>00000000010,00</Amount>
+          </VAT1>
+          <VAT2>
+             <Percent>12,00</Percent>
+             <Amount>00000000006,00</Amount>
+          </VAT2>
+          <VAT3>
+             <Percent>06,00</Percent>
+             <Amount>00000000030,00</Amount>
+          </VAT3>
+          <VAT4>
+             <Percent>00,00</Percent>
+             <Amount>00000000000,00</Amount>
+          </VAT4>
+        </ControlData>
+   </CTU>
+</AtcCommand>

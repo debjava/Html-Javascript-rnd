@@ -1,0 +1,50 @@
+<html>
+<head>
+<title> New Document </title>
+<script type="text/javascript" language="javascript">
+function DynamicDiv() 
+{
+	var previousInnerHTML = new String();
+	previousInnerHTML = document.getElementById('div1').innerHTML;
+	var dynDiv = document.createElement("div");
+	dynDiv.id = "divDyna";
+	dynDiv.innerHTML = previousInnerHTML;
+	dynDiv.style.height = "20px";
+	dynDiv.style.width = "300px";
+	dynDiv.style.backgroundColor = 'gray';
+	document.body.appendChild(dynDiv);
+}
+
+function toggleDiv()
+{
+	var body = document.body;
+	var div = document.getElementById("divDyna");
+	body.removeChild(div);
+}
+
+</script>
+
+ </head>
+
+ <body>
+  <div id="div1" style="display:none">
+	<table>
+		<tr>
+			<td>Enter your Name :</td>
+			<td><input type="text" value="" id="nameid" name="nameTxt"></td>
+		</tr>
+		<tr>
+			<td>Enter your Age :</td>
+			<td><input type="text" value="" id="ageid" name="ageTxt"></td>
+		</tr>
+		<tr>
+			<td><input type="button" value="Close" onClick="toggleDiv();"></td>
+		</tr>
+	</table>
+  </div>
+  <div id="div2">
+		<input id="Button1" type="button" value="Using JS" onclick="DynamicDiv();" />
+  </div>
+
+ </body>
+</html>

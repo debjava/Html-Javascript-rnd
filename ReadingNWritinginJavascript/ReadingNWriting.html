@@ -1,0 +1,58 @@
+<html>
+<head>
+</head>
+<title>Reading and Writing file</title>
+<script language="JScript">
+function WriteToFile()
+{
+ var filename = "data.txt";
+ var fso = new ActiveXObject("Scripting.FileSystemObject");
+ alert("fso");
+ if (fso.FileExists(filename))
+ {
+  var a, ForAppending, file;
+  ForAppending = 8;    
+  file = fso.OpenTextFile(filename, ForAppending, false);
+   file.WriteLine("AAAA");
+   file.WriteLine("SSSSS");
+ }
+ else 
+ {
+  var file = fso.CreateTextFile(filename, true);
+   file.WriteLine("AAAA");
+   file.WriteLine("AAAA");
+ }
+ file.Close();
+}
+
+function ReadFromFile()
+{
+ var fso, a, ForReading;
+ ForReading = 1;
+ fso = new ActiveXObject("Scripting.FileSystemObject");
+ file = fso.OpenTextFile("data.txt", ForReading, false);
+  var name = file.readline();
+  var password = file.readline();
+  alert(name+"  "+password);
+ file.Close();
+}
+</script>
+<body>
+
+<input type="button" value="Write" onClick="WriteToFile();">
+<input type="button" value="Read" onClick="ReadFromFile();">
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

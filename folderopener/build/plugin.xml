@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="folderopen"
+         name="Folder Open Builder"
+         point="org.eclipse.core.resources.builders">
+      <builder
+            hasNature="true">
+         <run
+               class="com.ddlab.rnd.tornado.action.FolderOpenBuilder">
+         </run>
+      </builder>
+   </extension>
+   <extension
+         id="folderOpenNature"
+         name="Folder Open Nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="com.ddlab.rnd.tornado.action.FolderOpener">
+         </run>
+      </runtime>
+      <builder
+            id="folderopener.folderopen">
+      </builder>
+   </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            objectClass="org.eclipse.core.resources.IResource"
+            nameFilter="*"
+            id="folderopener.contribution1">
+         <action
+               label="Open Folder"
+               class="com.ddlab.rnd.tornado.action.ToggleNatureAction"
+               menubarPath="additions"
+               enablesFor="+"
+               id="folderopener.addRemoveNatureAction">
+         </action>
+      </objectContribution>
+   </extension>
+   <extension
+         id="xmlProblem"
+         name="XML Problem"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.core.resources.problemmarker">
+      </super>
+      <persistent
+            value="true">
+      </persistent>
+   </extension>
+
+</plugin>

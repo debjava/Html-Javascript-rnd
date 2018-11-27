@@ -1,0 +1,48 @@
+# ***************************************************************************
+# Author  : Debadatta Mishra
+# Purpose : Deployment of application in Websphere 7 and 8 
+# ***************************************************************************
+
+# Provide below the .war directory path
+file_path = 'D:/Jython-Scripting-Websphere/SampleApps/';
+# Provide below the .war file name only
+war_file_name = 'connectionpool.war';
+# Provide below the root context application name
+application_name = 'connectionpool';
+# Provide below the Websphere application server version number
+serverVersionNo = '8.0.0.1';
+# Full War file path 
+war_file_path = file_path+war_file_name;
+
+# *************************************************************************************************
+# Logical Section below, do not modify the below code without any prior information and knowledge
+# *************************************************************************************************
+
+server = AdminControl.queryNames('node='+AdminControl.getNode( )+',type=Server,*');
+print server;
+serverName = AdminControl.getAttribute(server, "name");
+print serverName;
+nodeName = AdminControl.getNode( );
+print nodeName;
+cellName = AdminControl.getCell( );
+print cellName;
+
+# **************** Uninstallation of existing application *********************
+#AdminApp.uninstall(application_name);
+#AdminConfig.save();
+
+wasServerVarName = 'WebSphere:cell='+cellName+',node='+nodeName+',server='+serverName;
+print wasServerVarName;
+
+# ******************* Installation of application *********************
+AdminApp.install(war_file_path, '[ -nopreCompileJSPs -distributeApp -nouseMetaDataFromBinary -nodeployejb -appname '+application_name+' -createMBeansForResources -noreloadEnabled -nodeployws -validateinstall warn -noprocessEmbeddedConfig -filepermission .*\.dll=755#.*\.so=755#.*\.a=755#.*\.sl=755 -noallowDispatchRemoteInclude -noallowServiceRemoteInclude -asyncRequestDispatchType DISABLED -nouseAutoLink -noenableClientModule -clientMode isolated -novalidateSchema -contextroot /'+application_name+' -MapModulesToServers [[ '+war_file_name+' '+war_file_name+',WEB-INF/web.xml '+wasServerVarName+' ]] -MapWebModToVH [[ '+war_file_name+' '+war_file_name+',WEB-INF/web.xml default_host ]] -CtxRootForWebMod [[ '+war_file_name+' '+war_file_name+',WEB-INF/web.xml /'+application_name+' ]]]' );
+AdminConfig.save();
+
+# *****************************Start the deployed application **********************
+AdminControl.invoke('WebSphere:name=ApplicationManager,process=server1,platform=proxy,node='+nodeName+',version='+serverVersionNo+',type=ApplicationManager,mbeanIdentifier=ApplicationManager,cell='+cellName+',spec=1.0', 'startApplication', '['+application_name+']', '[java.lang.String]');
+print "Saving the information"
+AdminConfig.save();
+
+print '\n*****************************************************\n'
+print 'Application '+application_name+' Started Successfully';
+print '\n*****************************************************\n'

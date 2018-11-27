@@ -1,0 +1,139 @@
+<html>
+	<head>
+		<title>Adding and Removing Rows from a table using DHTML and JavaScript</title>
+		<script language="javascript">
+			
+			//var count = eval("1");
+			//add a new row to the table
+			function addRow()
+			{
+				var tbl = document.getElementById('tblGrid');
+				//Last Row
+				var lastRow = tbl.rows.length;
+								
+				//add a row to the rows collection and get a reference to the newly added row
+				var newRow = document.all("tblGrid").insertRow();
+				
+				addTableData( newRow );
+			}
+			
+			function addRowAtBeginning()
+			{
+				//Insert a row in the beginning of the table
+				var newRow = document.all("tblGrid").insertRow(0);
+				addTableData(newRow);
+			}
+			
+			function addTableData( tableRow )
+			{
+				var tbl = document.getElementById('tblGrid');
+				//Last Row
+				var lastRow = tbl.rows.length;
+				
+				var oCell = tableRow.insertCell();
+				//<input type="checkbox" id="c1" name="check"/>
+				oCell.innerHTML = "<input type='checkbox' id="+"c"+lastRow+"name=check"+"/>";		
+				//First Cell
+				var oCell = tableRow.insertCell();//insertCell(0);				
+				oCell.innerHTML = "<input type='text' name='t1'"+"value="+lastRow+">";
+				//Second Cell								
+				oCell = tableRow.insertCell();
+				oCell.innerHTML = "<input type='text' name='t2'>";
+				//Third Cell
+				oCell = tableRow.insertCell();
+				oCell.innerHTML = "<input type='text' name='t3'><input type='button' value='Delete' onclick='removeRow(this);'/>";			
+			}
+			
+			function getTotalRows()
+			{
+				var tbl = document.getElementById('tblGrid');
+				//Last Row
+				var lastRow = tbl.rows.length;
+				alert(lastRow);
+			}
+			
+			//deletes the specified row from the table
+			function removeRow(src)
+			{
+				/* src refers to the input button that was clicked.	
+				   to get a reference to the containing <tr> element,
+				   get the parent of the parent (in this case case <tr>)
+				*/			
+				var oRow = src.parentElement.parentElement;		
+				
+				//once the row reference is obtained, delete it passing in its rowIndex			
+				document.all("tblGrid").deleteRow(oRow.rowIndex);		
+			}
+			
+			function deleteAllRows()
+			{
+				
+				var table = document.getElementById('tblGrid');
+				var rowCount = table.rows.length;
+				for(var i=0; i<rowCount; i++)
+				{
+					var row = table.rows[i];
+					var chkbox = row.cells[0].childNodes[0];
+						table.deleteRow(i);
+						rowCount--;
+						i--;
+				}		
+				
+			}
+			
+			function deleteSelectedRows()
+			{			
+				var table = document.getElementById('tblGrid');
+				var rowCount = table.rows.length;
+				for(var i=0; i<rowCount; i++)
+				{
+					var row = table.rows[i];
+					var chkbox = row.cells[0].childNodes[0];
+					if(null != chkbox && true == chkbox.checked)
+					{
+						table.deleteRow(i);
+						rowCount--;
+						i--;
+					}
+				}		
+				
+			}
+			
+			function deleteFirstRow()
+			{
+				var tbl = document.getElementById('tblGrid');
+				tbl.deleteRow(0);
+			}
+			
+			function deleteLastRow()
+			{
+				//alert("Deletion of last row, not yet implemented");
+				var tbl = document.getElementById('tblGrid');
+				var lastRow = tbl.rows.length;
+				if( lastRow != 0 )
+					tbl.deleteRow(lastRow - 1);
+			}
+		
+		</script>
+	</head>
+	<body>
+		<input type="button" value="Add Row in the last" onclick="addRow();" />
+		<input type="button" value="Add Row in the beginning" onclick="addRowAtBeginning();" />
+		<input type="button" value="Total Rows" onclick="getTotalRows();" />
+		
+		<!-- Deletion of table rows -->
+		<input type="button" value="Delete All Rows" onclick="deleteAllRows();"/>
+		<input type="button" value="Delete Selected Row/s" onclick="deleteSelectedRows();"/>
+		<input type="button" value="Delete First Row" onclick="deleteFirstRow();"/>
+		<input type="button" value="Delete Last Row" onclick="deleteLastRow();"/>
+		
+		<table id="tblGrid">
+			<tr>
+				<td><input type="checkbox" id="c1" name="check"/></td>
+				<td><input type="text" name="t1" /></td>
+				<td><input type="text" name="t2" /></td>
+				<td><input type="text" name="t3" /><input type="button" value="Delete" onclick="removeRow(this);" /></td>
+			</tr>
+		</table>
+	</body>
+</html>

@@ -1,0 +1,56 @@
+<project name="folderopener" basedir="." default="createJar">
+
+	<property name="src.dir" value="${basedir}/src" />
+	<property name="dist.dir" value="${basedir}/dist" />
+	<property name="build.dir" value="${basedir}/build" />
+	<property name="eclipse.plugin.dir" value="F:/dev/eclipse_rcp/plugins" />
+	<property name="plugins.dir" value="${basedir}/plugins" />
+	<property name="metainf.dir" value="${basedir}/META-INF" />
+	<property name="plugin.xml.file" value="${basedir}/plugin.xml" />
+	<property name="version.no" value="1.0.0" />
+
+	<path id="pluginClasspath">
+		<fileset dir="${eclipse.plugin.dir}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<target name="clean">
+		<delete dir="${build.dir}" />
+		<delete dir="${dist.dir}" />
+		<delete dir="${plugins.dir}" />
+	</target>
+
+	<target name="init">
+		<delete dir="${build.dir}" />
+		<mkdir dir="${build.dir}" />
+		<delete dir="${dist.dir}" />
+		<mkdir dir="${dist.dir}" />
+		<delete dir="${plugins.dir}" />
+		<mkdir dir="${plugins.dir}" />
+	</target>
+
+	<target name="compile" depends="init">
+		<javac debug="on" fork="true" destdir="${build.dir}" srcdir="${src.dir}" classpathref="pluginClasspath">
+		</javac>
+	</target>
+
+	<target name="copyAll" depends="compile">
+		<copydir dest="${build.dir}/META-INF" src="${metainf.dir}">
+		</copydir>
+		<copy file="${plugin.xml.file}" todir="${build.dir}" />
+		<tstamp>
+			<format property="TODAY" pattern="yyyyMMddHHmm" />
+		</tstamp>
+		<replace file="${build.dir}/META-INF/MANIFEST.MF" token="1.0.0.qualifier" value="${version.no}.${TODAY}">
+		</replace>
+	</target>
+
+	<target name="createJar" depends="copyAll">
+		<jar destfile="${plugins.dir}/plugins/${ant.project.name}_${version.no}.${TODAY}.jar" basedir="${build.dir}" manifest="${build.dir}/META-INF/MANIFEST.MF">
+		</jar>
+		<zip destfile="${dist.dir}/${ant.project.name}.zip" basedir="${plugins.dir}">
+		</zip>
+	</target>
+
+</project>

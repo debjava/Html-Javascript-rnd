@@ -1,0 +1,98 @@
+#------------------------------------------------
+# Datasource Creation in Websphere
+# Author : Debadatta Mishra
+# Comments : Datasource creation for Oracle 11g
+#------------------------------------------------
+
+#------------------------------------------------
+# Initialization of variables
+# Provide the relevent database details
+#------------------------------------------------
+jdbcName = 'OracleJDBC1';
+jdbc_driver = '${ORACLE_JDBC_DRIVER_PATH}/ojdbc6.jar';
+alias1 = 'test1';
+user = 'test1';
+password = 'test1'
+datasource = "OracleDS"
+jndiName = "OracleDS"
+jdbcName = 'OracleJDBC1';
+alias1 = 'test1';
+url = 'jdbc:oracle:thin:@localhost:1521:orcl';
+#------------------------------------------------
+# JDBC Provider Creation
+#------------------------------------------------
+server = AdminControl.queryNames('node='+AdminControl.getNode( )+',type=Server,*')
+serverName = AdminControl.getAttribute(server, "name")
+nodeName = AdminControl.getNode( )
+cellName = AdminControl.getCell( )
+serverId1 = AdminConfig.getid('/Cell:'+cellName+'/Node:'+nodeName+'/Server:'+serverName+'/')
+print serverId1
+## Creating New JDBC Provider ##
+print " Creating New JDBC Provider :"+ jdbcName 
+n1 = ["name" , jdbcName ]
+desc = ["description" , "Oracle JDBC Driver"]
+impn = ["implementationClassName" , "oracle.jdbc.pool.OracleConnectionPoolDataSource"]
+classpath = ["classpath" , jdbc_driver ]
+attrs1 = [n1 , impn , desc , classpath]
+cell = AdminControl.getCell()
+#Serverid = AdminConfig.getid('/Cell:'+ cell +'/')		
+#print Serverid
+jdbc = AdminConfig.create('JDBCProvider' , serverId1 , attrs1)
+print " New JDBC Provider created :"+ jdbcName 
+AdminConfig.save()
+print " Saving Configuraion " 
+print " ---------------------------- End of JDBC Provider Creation --------------------------- "
+#------------------------------------------------
+# J2C Authentication Data Creation
+#------------------------------------------------
+cell = AdminControl.getCell();
+sec = AdminConfig.getid('/Cell:'+ cell +'/Security:/');
+print sec;
+## J2C Authentication Entries ##
+print " Creating New JAASAuthData with Alias name :"+ alias1
+alias_attr = ["alias" , alias1]
+desc_attr = ["description" , alias1]
+userid_attr = ["userId" , user ]
+password_attr = ["password" , password]
+attrs = [alias_attr , desc_attr , userid_attr , password_attr ]
+authdata = AdminConfig.create('JAASAuthData' , sec , attrs)
+print " Saving Configuraion "
+AdminConfig.save()
+print " ----------------------- End of J2C Authentication Data Creation ----------------------- "
+#------------------------------------------------
+# Datasource Creation in Websphere
+#------------------------------------------------
+server = AdminControl.queryNames('node='+AdminControl.getNode( )+',type=Server,*')
+serverName = AdminControl.getAttribute(server, "name")
+print serverName
+nodeName = AdminControl.getNode( )
+cellName = AdminControl.getCell( )
+ds = AdminConfig.getid('/Cell:'+cellName+'/Node:'+nodeName+'/Server:'+serverName+''+'/JDBCProvider:'+ jdbcName) 
+print ds;
+name1 = ["name" , datasource]
+jndi = ["jndiName" , jndiName]
+authentication = ["authDataAlias" , alias1]
+st_cachesize = ["statementCacheSize" , "150"]
+ds_hlpclass = ["datasourceHelperClassname" , "com.ibm.websphere.rsadapter.Oracle11gDataStoreHelper"]
+map_configalias_attr=["mappingConfigAlias", "DefaultPrincipalMapping"]
+map_attrs=[authentication , map_configalias_attr]
+mapping_attr=["mapping", map_attrs]
+ds_attr = [name1 , jndi , authentication , st_cachesize , ds_hlpclass ,mapping_attr ]
+newds = AdminConfig.create('DataSource' , ds , ds_attr)
+print " New DataSource created with name :"+ datasource 
+AdminConfig.save()
+print " Saving Configuraion "
+newds1 = AdminConfig.getid('/Cell:'+cellName+'/Node:'+nodeName+'/Server:'+serverName+''+'/JDBCProvider:'+ jdbcName +'/DataSource:'+ datasource)
+print newds1;
+propSet = AdminConfig.create('J2EEResourcePropertySet' , newds1 , "")
+name3 = ["name" , "URL"]
+type = ["type" , "java.lang.String"]
+required = ["required" , "true"]
+value = ["value" , url]
+rpAttrs = [name3 , type , required , value]
+jrp = AdminConfig.create('J2EEResourceProperty' , propSet , rpAttrs)
+print " Properties created for DataSource :"+ datasource 
+print " Saving Configuraion "
+AdminConfig.save()
+AdminConfig.save()
+print " ----------------------- End of Datasource Creation ----------------------- "

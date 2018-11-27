@@ -1,0 +1,25 @@
+<html>
+	<head>
+		<title>DHML Floating Layer creation</title>
+	</head>
+	<link rel="stylesheet" href="windowfiles/dhtmlwindow.css" type="text/css" />
+	<script type="text/javascript" src="windowfiles/dhtmlwindow.js"></script>
+	<script language="javascript">
+	function openFloatingLayer()
+	{
+		//var title = "Title Layer";
+		//var content = "login.html";
+		//alert();
+		//var inlinewin = contentwindow.open("broadcastbox", "iframe", content, title, "width=300px, height=120px, left=600px,top=230px, resize=1, scrolling=0", "recal");
+		var googlewin=dhtmlwindow.open("googlebox", "iframe", "http://images.google.com/", "#1: Google Web site", "width=590px,height=350px,resize=1,scrolling=1,center=1");
+		
+		
+	}
+</script>
+	<body>
+		<input type="button" value="FloatingLayer" id="btnId" onclick="openFloatingLayer();" >
+		
+		<a href="#" onClick="yahoowin=dhtmlwindow.open('yahoo', 'iframe', 'http://yahoo.com', 'Yahoo', 'width=500px,height=300px,center=1'); return false">Show Yahoo</a>
+		
+	</body>
+</html>

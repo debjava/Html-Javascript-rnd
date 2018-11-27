@@ -1,0 +1,36 @@
+<html>
+<head>
+<title>Draggable handle example</title>
+
+<script type="text/javascript" src="dom-drag.js"></script>
+
+<script language="javascript">
+function test()
+{
+	var theHandle = document.getElementById("divId");
+	Drag.init(theHandle);
+} 
+</script>
+
+<style type="text/css"> 
+ .aaa
+ {
+	position:absolute;
+	height:300px;
+	width:300px;
+	background-color:#F4F4F4;
+	border:1px solid #333;
+ }
+</style>
+
+</head>
+ 
+<body onLoad="test();">
+ 
+<div id="divId" class="aaa">
+Hello World
+</div>
+ 
+</body>
+ 
+</html>

@@ -1,0 +1,17 @@
+# ***************************************************************************
+# Author  : Debadatta Mishra
+# Purpose : Deployment of application in Websphere 7 and 8 
+# ***************************************************************************
+
+application_name = 'connectionpool';
+
+# *************************************************************************************************
+# Logical Section below, do not modify the below code without any prior information and knowledge
+# *************************************************************************************************
+
+# **************** Uninstallation of existing application *********************
+AdminApp.uninstall(application_name);
+AdminConfig.save();
+print '\n*********************************************************************\n'
+print 'Application '+application_name+' uninstalled successfully............'
+print '\n*********************************************************************'

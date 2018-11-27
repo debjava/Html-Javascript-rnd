@@ -1,0 +1,10 @@
+<AtcCommand>
+      <Dialog>
+        <Dsp>
+        <DspRow>1</DspRow>
+        <DspText>Ok</DspText>
+        </Dsp>
+        <KbdEndFnc>EB</KbdEndFnc>
+      </Dialog>
+</AtcCommand>
+
